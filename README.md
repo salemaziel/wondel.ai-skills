@@ -102,8 +102,23 @@ npx skills add wondelai/skills/design-code-architecture --global
 
 Codex adopted the same open `SKILL.md` standard, so every skill here works in Codex CLI too:
 
+- **Via Codex Plugin Marketplace CLI**:
+  ```bash
+  codex plugin marketplace add wondelai/skills
+
+  codex plugin add product-strategy@wondelai-skills
+  codex plugin add ux-design@wondelai-skills
+  codex plugin add marketing-cro@wondelai-skills
+  codex plugin add sales-influence@wondelai-skills
+  codex plugin add product-innovation@wondelai-skills
+  codex plugin add strategy-growth@wondelai-skills
+  codex plugin add team-motivation@wondelai-skills
+  codex plugin add code-craftsmanship@wondelai-skills
+  codex plugin add systems-architecture@wondelai-skills
+  codex plugin add metaskills@wondelai-skills
+  ```
 - **Individual skills** — the `npx skills add wondelai/skills/<name>` commands above target Codex as well (Codex is a supported [agentskills.io](https://agentskills.io) agent).
-- **As Codex plugins** — this repo ships a Codex plugin marketplace at [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) with the same 10 collections. In a clone, Codex auto-discovers it (and the skills under `.agents/skills/`); manage installs from the `/plugins` menu in the Codex TUI. The Codex manifests are generated from `.claude-plugin/marketplace.json` (single source of truth) by `scripts/generate-codex-plugins.sh`.
+- **Auto-discovery in cloned repos** — this repo ships a Codex plugin marketplace at [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) and [`.codex/plugins/marketplace.json`](.codex/plugins/marketplace.json) with the same 10 collections. In a clone, Codex auto-discovers it (and the skills under `.agents/skills/` / `.codex/skills/`); manage installs from the `/plugins` menu in the Codex TUI. The Codex manifests are generated from `.claude-plugin/marketplace.json` (single source of truth) by `scripts/generate-codex-plugins.sh`.
 
 ## Available Skills
 

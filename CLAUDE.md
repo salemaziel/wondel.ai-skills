@@ -22,14 +22,13 @@ skills/
 ├── README.md              # Skill catalog with descriptions and installation instructions
 │
 │   # ---- everything below is GENERATED (do not hand-edit) ----
-├── .claude/ .cursor/ .windsurf/ .pi/  # per-IDE skills/ symlink mirrors (sync-ide-skills.sh)
-├── .agents/
-│   ├── skills/            # flat skill symlinks for Codex / .agents-convention agents
-│   └── plugins/marketplace.json   # Codex plugin marketplace (mirrors .claude-plugin/)
-└── plugins/{collection}/  # Codex plugins: .codex-plugin/plugin.json + skills/ symlinks
+├── .claude/ .cursor/ .windsurf/ .pi/ .agents/ .codex/  # per-IDE skills/ symlink mirrors (sync-ide-skills.sh)
+├── .agents/plugins/marketplace.json                     # Codex plugin marketplace (.agents standard)
+├── .codex/plugins/marketplace.json                      # Codex plugin marketplace (native .codex mirror)
+└── plugins/{collection}/                                # Codex plugins: .codex-plugin/plugin.json + skills/
 ```
 
-The Codex plugin standard (`plugins/` + `.agents/plugins/marketplace.json`) is **generated from `.claude-plugin/marketplace.json`** by `scripts/generate-codex-plugins.sh` — same 10 collections, same skill membership, versions tracked automatically. Never hand-edit the generated trees.
+The Codex plugin standard (`plugins/` + `.agents/plugins/marketplace.json` + `.codex/plugins/marketplace.json`) is **generated from `.claude-plugin/marketplace.json`** by `scripts/generate-codex-plugins.sh` — same 10 collections, same skill membership, versions tracked automatically. Never hand-edit the generated trees.
 
 ## Current Skills (62)
 
@@ -123,7 +122,7 @@ The 12 metaskills (create/improve/grow × business/website/app, improve-code-qua
    - Add "Skill Details" section (description, About the author, Use when, Example prompts)
    - Add to "Copyright & Disclaimer" section
 5. Add the skill's path to `.claude-plugin/marketplace.json` under the appropriate plugin collection (add the `./skill-name` entry only — do **not** hand-pick a version; see Versioning Policy)
-6. Run `scripts/sync-ide-skills.sh` — regenerates the IDE mirrors (`.claude/.cursor/.windsurf/.pi/.agents`) **and** the Codex plugin marketplace (`plugins/` + `.agents/plugins/`). These are generated; never hand-edit them.
+6. Run `scripts/sync-ide-skills.sh` — regenerates the IDE mirrors (`.claude/.cursor/.windsurf/.pi/.agents/.codex`) **and** the Codex plugin marketplace (`plugins/` + `.agents/plugins/` + `.codex/plugins/`). These are generated; never hand-edit them.
 
 ## Installation
 
@@ -141,6 +140,22 @@ The 12 metaskills (create/improve/grow × business/website/app, improve-code-qua
 /plugin install code-craftsmanship@wondelai-skills  # Clean Code, Refactoring Patterns, Software Design Philosophy, Pragmatic Programmer, DDD, Working with Legacy Code
 /plugin install systems-architecture@wondelai-skills # DDIA, System Design, Clean Architecture, Release It!, High Performance Browser Networking, Team Topologies
 /plugin install metaskills@wondelai-skills           # 12 guided journeys: create/improve/grow × business/website/app + improve-code-quality, remove-technical-debt, design-code-architecture
+```
+
+### Via Codex CLI Plugin Marketplace
+```bash
+codex plugin marketplace add wondelai/skills
+
+codex plugin add product-strategy@wondelai-skills
+codex plugin add ux-design@wondelai-skills
+codex plugin add marketing-cro@wondelai-skills
+codex plugin add sales-influence@wondelai-skills
+codex plugin add product-innovation@wondelai-skills
+codex plugin add strategy-growth@wondelai-skills
+codex plugin add team-motivation@wondelai-skills
+codex plugin add code-craftsmanship@wondelai-skills
+codex plugin add systems-architecture@wondelai-skills
+codex plugin add metaskills@wondelai-skills
 ```
 
 ### Via skills.sh

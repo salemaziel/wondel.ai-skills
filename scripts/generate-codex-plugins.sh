@@ -7,8 +7,9 @@
 # membership, versions, metadata). This script regenerates, from it:
 #
 #   plugins/<collection>/.codex-plugin/plugin.json   # Codex plugin manifest
-#   plugins/<collection>/skills/<skill>              # symlinks -> repo-root skills
+#   plugins/<collection>/skills/<skill>              # copied skill directories
 #   .agents/plugins/marketplace.json                 # Codex marketplace
+#   .codex/plugins/marketplace.json                  # Codex marketplace (mirror)
 #
 # Codex resolves a marketplace entry's source.path relative to the REPO ROOT
 # (not the .agents/plugins/ dir), so plugin dirs live at repo-root plugins/ —
@@ -29,13 +30,15 @@ SRC=".claude-plugin/marketplace.json"
 PLUGINS_DIR="plugins"
 MP_DIR=".agents/plugins"
 MP="$MP_DIR/marketplace.json"
+CODEX_MP_DIR=".codex/plugins"
+CODEX_MP="$CODEX_MP_DIR/marketplace.json"
 
 [[ -f "$SRC" ]] || { echo "Error: $SRC not found (run from the skills repo root)" >&2; exit 1; }
 command -v jq >/dev/null || { echo "Error: jq is required" >&2; exit 1; }
 
 # This script fully owns these generated paths.
-rm -rf "$PLUGINS_DIR" "$MP_DIR"
-mkdir -p "$PLUGINS_DIR" "$MP_DIR"
+rm -rf "$PLUGINS_DIR" "$MP_DIR" "$CODEX_MP_DIR"
+mkdir -p "$PLUGINS_DIR" "$MP_DIR" "$CODEX_MP_DIR"
 
 # 1) Codex marketplace manifest — one entry per Claude collection.
 jq '{
@@ -44,10 +47,11 @@ jq '{
   plugins: [ .plugins[] | {
     name: .name,
     source: { source: "local", path: ("./plugins/" + .name) },
-    policy: { installation: "AVAILABLE", authentication: "ON_FIRST_USE" },
+    policy: { installation: "AVAILABLE", authentication: "ON_INSTALL" },
     category: (.category // "Coding")
   } ]
 }' "$SRC" > "$MP"
+cp "$MP" "$CODEX_MP"
 
 # 2) One Codex plugin per collection: manifest + skill symlinks.
 count="$(jq '.plugins | length' "$SRC")"
@@ -70,7 +74,7 @@ for i in $(seq 0 $((count - 1))); do
       echo "  warn: skill '$sk' (collection $name) has no SKILL.md — skipping" >&2
       continue
     fi
-    ln -s "../../../$sk" "$pdir/skills/$sk"
+    cp -r "$sk" "$pdir/skills/$sk"
     total_links=$((total_links + 1))
   done < <(jq -r ".plugins[$i].skills[]" "$SRC")
 done

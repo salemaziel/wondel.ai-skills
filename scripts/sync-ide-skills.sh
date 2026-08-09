@@ -13,7 +13,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 
-IDE_DIRS=(.claude/skills .cursor/skills .windsurf/skills .pi/skills .agents/skills)
+IDE_DIRS=(.claude/skills .cursor/skills .windsurf/skills .pi/skills .agents/skills .codex/skills)
 
 # Discover skills: top-level directories containing SKILL.md
 skills=()
