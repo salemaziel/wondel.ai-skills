@@ -1,6 +1,6 @@
 # Wondel.ai Agent Skills — Business, Marketing, UX & Coding Frameworks from Bestselling Books
 
-62 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents: 50 expert frameworks from bestselling books, plus 12 **metaskills** — guided journeys that orchestrate them step by step to create, improve, or grow a business, website, or app, and to improve code quality, remove technical debt, or design code architecture. Each metaskill asks you the decision questions phase by phase and keeps its state in your project's `docs/` folder, so a journey survives across sessions. Browse all skills at [skills.wondel.ai](https://skills.wondel.ai/).
+65 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents: 53 expert frameworks from bestselling books, plus 12 **metaskills** — guided journeys that orchestrate them step by step to create, improve, or grow a business, website, or app, and to improve code quality, remove technical debt, or design code architecture. Each metaskill asks you the decision questions phase by phase and keeps its state in your project's `docs/` folder, so a journey survives across sessions. Browse all skills at [skills.wondel.ai](https://skills.wondel.ai/).
 
 ## Installation
 
@@ -12,7 +12,7 @@
 
 # Install plugin collections
 /plugin install product-strategy@wondelai-skills      # Jobs to Be Done, Negotiation, Mom Test
-/plugin install ux-design@wondelai-skills             # Refactoring UI, iOS HIG, UX Heuristics, Hooked, Improve Retention, Web Typography, Top Design, Design of Everyday Things, Lean UX, Microinteractions, Steve Jobs Design Review
+/plugin install ux-design@wondelai-skills             # Refactoring UI, iOS HIG, UX Heuristics, Hooked, Improve Retention, Web Typography, Top Design, Design of Everyday Things, Lean UX, Microinteractions, Steve Jobs Design Review, Gestalt UI, Laws of UX, UI Patterns
 /plugin install marketing-cro@wondelai-skills         # CRO Methodology, StoryBrand, Scorecard Marketing, Contagious, 1-Page Marketing
 /plugin install sales-influence@wondelai-skills       # Influence Psychology, Predictable Revenue, Made to Stick, $100M Offers
 /plugin install product-innovation@wondelai-skills    # Lean Startup, Design Sprint, Design of Everyday Things, Inspired, Continuous Discovery, 37signals Way
@@ -82,6 +82,9 @@ npx skills add wondelai/skills/working-with-legacy-code --global
 npx skills add wondelai/skills/team-topologies --global
 npx skills add wondelai/skills/high-output-management --global
 npx skills add wondelai/skills/lean-analytics --global
+npx skills add wondelai/skills/gestalt-ui --global
+npx skills add wondelai/skills/laws-of-ux --global
+npx skills add wondelai/skills/ui-patterns --global
 
 # Metaskills — guided journeys that orchestrate the skills above
 npx skills add wondelai/skills/create-business --global
@@ -96,6 +99,7 @@ npx skills add wondelai/skills/grow-app --global
 npx skills add wondelai/skills/improve-code-quality --global
 npx skills add wondelai/skills/remove-technical-debt --global
 npx skills add wondelai/skills/design-code-architecture --global
+```
 ```
 
 ### Via OpenAI Codex
@@ -174,6 +178,9 @@ Codex adopted the same open `SKILL.md` standard, so every skill here works in Co
 | [team-topologies](https://skills.wondel.ai/skills/team-topologies/) | Four team types, three interaction modes, Conway's law, team cognitive load | [Matthew Skelton](https://x.com/matthewpskelton) & [Manuel Pais](https://x.com/manupaisable)'s [*"Team Topologies"*](https://www.amazon.com/Team-Topologies-Organizing-Business-Technology/dp/1942788819?tag=wondelai00-20) |
 | [high-output-management](https://skills.wondel.ai/skills/high-output-management/) | Managerial leverage, one-on-ones, OKRs, task-relevant maturity | Andrew S. Grove's [*"High Output Management"*](https://www.amazon.com/High-Output-Management-Andrew-Grove/dp/0679762884?tag=wondelai00-20) |
 | [lean-analytics](https://skills.wondel.ai/skills/lean-analytics/) | One Metric That Matters, metrics by business model and stage, benchmarks | [Alistair Croll](https://x.com/acroll) & [Ben Yoskovitz](https://x.com/byosko)'s [*"Lean Analytics"*](https://www.amazon.com/Lean-Analytics-Better-Startup-Faster/dp/1449335675?tag=wondelai00-20) |
+| [gestalt-ui](https://skills.wondel.ai/skills/gestalt-ui/) | Apply Gestalt principles of visual perception to UI design | Gestalt psychology research (Wertheimer, Koffka, Köhler) applied to digital interfaces |
+| [laws-of-ux](https://skills.wondel.ai/skills/laws-of-ux/) | Apply evidence-based UX laws to interaction design decisions | [Jon Yablonski](https://x.com/jonyablonski)'s [*"Laws of UX"*](https://www.amazon.com/Laws-UX-Using-Psychology-Products/dp/149205531X?tag=wondelai00-20) |
+| [ui-patterns](https://skills.wondel.ai/skills/ui-patterns/) | Apply proven UI component patterns and scanning behaviour to build effective interfaces | Nielsen Norman Group research, Smashing Magazine best practices |
 | [create-business](https://skills.wondel.ai/skills/create-business/) | Guided journey: raw idea → validated, positioned, priced business | Orchestrates 10 skills, from jobs-to-be-done to crossing-the-chasm |
 | [create-website](https://skills.wondel.ai/skills/create-website/) | Guided journey: blank page → high-converting website | Orchestrates 10 skills, from storybrand-messaging to steve-jobs-design-review |
 | [create-app](https://skills.wondel.ai/skills/create-app/) | Guided journey: idea → validated, well-architected app | Orchestrates 10 skills, from lean-startup to software-design-philosophy |
@@ -1343,6 +1350,70 @@ Choose the One Metric That Matters for your business model and stage, kill vanit
 
 ---
 
+### [gestalt-ui](https://skills.wondel.ai/skills/gestalt-ui/)
+
+Apply Gestalt principles of visual perception to UI design. Group and organize elements, create visual hierarchies, and build intuitive layouts based on proximity, similarity, continuity, closure, figure/ground, and common region.
+
+**Based on:** Gestalt psychology research (Max Wertheimer, Kurt Koffka, Wolfgang Köhler) applied to digital interface design, synthesised from [Smashing Magazine](https://www.smashingmagazine.com/2014/03/design-principles-visual-perception-and-the-principles-of-gestalt/) and [Interaction Design Foundation](https://www.interaction-design.org/literature/topics/gestalt-principles).
+
+**Use when you need to:**
+- Group and organize UI elements effectively using spacing, borders, and visual connections
+- Create intuitive visual relationships between components
+- Audit layouts for perceptual clarity and unintended grouping
+- Design navigation, cards, forms, or dashboards that users understand instantly
+- Resolve conflicting visual signals between proximity, similarity, and containers
+
+**Example prompts:**
+- *"Audit this dashboard layout for Gestalt violations. Use gestalt-ui skill."*
+- *"These form fields feel disconnected. Fix the visual grouping. Use gestalt-ui skill."*
+- *"How should I use proximity and common region to group these settings? Use gestalt-ui skill."*
+- *"Score this card layout on Gestalt principle adherence. Use gestalt-ui skill."*
+
+---
+
+### [laws-of-ux](https://skills.wondel.ai/skills/laws-of-ux/)
+
+Apply evidence-based UX laws to interaction design decisions. These behavioural psychology principles describe how humans perceive, decide, and act -- use them to design interfaces that work with human cognition, not against it.
+
+**About the author:** [Jon Yablonski](https://x.com/jonyablonski) is a designer and author of [*"Laws of UX"*](https://www.amazon.com/Laws-UX-Using-Psychology-Products/dp/149205531X?tag=wondelai00-20), synthesising decades of research from Fitts, Hick, Miller, Nielsen, and others into actionable design principles at [lawsofux.com](https://lawsofux.com/).
+
+**Use when you need to:**
+- Size and position interactive targets effectively (Fitts's Law)
+- Reduce cognitive load and decision complexity (Hick's Law, Miller's Law)
+- Design progress indicators and memory-friendly interfaces (Goal-Gradient, Serial Position)
+- Resolve design trade-offs with psychological evidence
+- Optimise response times and perceived performance (Doherty Threshold)
+- Follow platform conventions or decide when to break them (Jakob's Law)
+
+**Example prompts:**
+- *"Our mobile buttons feel too small and hard to tap. Audit using Fitts's Law. Use laws-of-ux skill."*
+- *"Users abandon our settings page. Too many choices? Diagnose with Hick's Law. Use laws-of-ux skill."*
+- *"Design a progress indicator for our 6-step onboarding. Use laws-of-ux skill."*
+- *"Score this checkout flow against UX laws. Use laws-of-ux skill."*
+
+---
+
+### [ui-patterns](https://skills.wondel.ai/skills/ui-patterns/)
+
+Apply proven UI component patterns and scanning behaviour to build effective interfaces. Concrete guidance for navigation, forms, buttons, cards, modals, tables, loading states, and notifications -- plus a decision reference for choosing between competing patterns.
+
+**Based on:** Nielsen Norman Group eye-tracking research, [Smashing Magazine](https://www.smashingmagazine.com/) best practices (navigation, forms, buttons), and industry-standard component design patterns.
+
+**Use when you need to:**
+- Design navigation that answers "Where am I? Where can I go? Where have I been?"
+- Build forms with optimal label placement, validation, and friction reduction
+- Choose between competing UI patterns (dropdown vs radio, modal vs inline, carousel vs static)
+- Apply F-pattern and Z-pattern scanning knowledge to content placement
+- Design appropriate loading states and notification patterns
+
+**Example prompts:**
+- *"Should I use a hamburger menu or visible nav for this site? Use ui-patterns skill."*
+- *"Improve this form's completion rate. Use ui-patterns skill."*
+- *"Where should I place the CTA on this landing page for maximum visibility? Use ui-patterns skill."*
+- *"Design loading states for our dashboard. Use ui-patterns skill."*
+
+---
+
 ### [create-business](https://skills.wondel.ai/skills/create-business/)
 
 Guided journey from raw idea to a validated, positioned, priced business with a chosen beachhead. The agent drives every phase, asks you the decision questions, and records everything as living documents in your project's `docs/` folder so the journey resumes across sessions.
@@ -1580,6 +1651,70 @@ Guided journey to design deliberate architecture for a new system: architecture 
 - *"We're starting a new service — design the architecture with me, decision by decision. Use design-code-architecture skill."*
 - *"Run the architecture journey for this system; default to a modular monolith. Use design-code-architecture skill."*
 - *"Resume the architecture design from the decision log. Use design-code-architecture skill."*
+||||||| 7c71a84
+=======
+### [gestalt-ui](https://skills.wondel.ai/skills/gestalt-ui/)
+
+Apply Gestalt principles of visual perception to UI design. Understand how users automatically group, separate, and interpret visual elements -- and use these principles intentionally to make interfaces self-explanatory.
+
+**Based on:** Gestalt psychology research (Max Wertheimer, Kurt Koffka, Wolfgang Köhler) applied to digital interface design, synthesised from [Smashing Magazine](https://www.smashingmagazine.com/2014/03/design-principles-visual-perception-and-the-principles-of-gestalt/) and [Interaction Design Foundation](https://www.interaction-design.org/literature/topics/gestalt-principles).
+
+**Use when you need to:**
+- Group and organize UI elements effectively using spacing, borders, and visual connections
+- Create intuitive visual relationships between components
+- Audit layouts for perceptual clarity and unintended grouping
+- Design navigation, cards, forms, or dashboards that users understand instantly
+- Resolve conflicting visual signals between proximity, similarity, and containers
+
+**Example prompts:**
+- *"Audit this dashboard layout for Gestalt violations. Use gestalt-ui skill."*
+- *"These form fields feel disconnected. Fix the visual grouping. Use gestalt-ui skill."*
+- *"How should I use proximity and common region to group these settings? Use gestalt-ui skill."*
+- *"Score this card layout on Gestalt principle adherence. Use gestalt-ui skill."*
+
+---
+
+### [laws-of-ux](https://skills.wondel.ai/skills/laws-of-ux/)
+
+Apply evidence-based UX laws to interaction design decisions. These behavioural psychology principles describe how humans perceive, decide, and act -- use them to design interfaces that work with human cognition, not against it.
+
+**About the author:** [Jon Yablonski](https://x.com/jonyablonski) is a designer and author of [*"Laws of UX"*](https://www.amazon.com/Laws-UX-Using-Psychology-Products/dp/149205531X?tag=wondelai00-20), synthesising decades of research from Fitts, Hick, Miller, Nielsen, and others into actionable design principles at [lawsofux.com](https://lawsofux.com/).
+
+**Use when you need to:**
+- Size and position interactive targets effectively (Fitts's Law)
+- Reduce cognitive load and decision complexity (Hick's Law, Miller's Law)
+- Design progress indicators and memory-friendly interfaces (Goal-Gradient, Serial Position)
+- Resolve design trade-offs with psychological evidence
+- Optimise response times and perceived performance (Doherty Threshold)
+- Follow platform conventions or decide when to break them (Jakob's Law)
+
+**Example prompts:**
+- *"Our mobile buttons feel too small and hard to tap. Audit using Fitts's Law. Use laws-of-ux skill."*
+- *"Users abandon our settings page. Too many choices? Diagnose with Hick's Law. Use laws-of-ux skill."*
+- *"Design a progress indicator for our 6-step onboarding. Use laws-of-ux skill."*
+- *"Score this checkout flow against UX laws. Use laws-of-ux skill."*
+
+---
+
+### [ui-patterns](https://skills.wondel.ai/skills/ui-patterns/)
+
+Apply proven UI component patterns and scanning behaviour to build effective interfaces. Concrete guidance for navigation, forms, buttons, cards, modals, tables, loading states, and notifications -- plus a decision reference for choosing between competing patterns.
+
+**Based on:** Nielsen Norman Group eye-tracking research, [Smashing Magazine](https://www.smashingmagazine.com/) best practices (navigation, forms, buttons), and industry-standard component design patterns.
+
+**Use when you need to:**
+- Design navigation that answers "Where am I? Where can I go? Where have I been?"
+- Build forms with optimal label placement, validation, and friction reduction
+- Choose between competing UI patterns (dropdown vs radio, modal vs inline, carousel vs static)
+- Apply F-pattern and Z-pattern scanning knowledge to content placement
+- Design appropriate loading states and notification patterns
+
+**Example prompts:**
+- *"Should I use a hamburger menu or visible nav for this site? Use ui-patterns skill."*
+- *"Improve this form's completion rate. Use ui-patterns skill."*
+- *"Where should I place the CTA on this landing page for maximum visibility? Use ui-patterns skill."*
+- *"Design loading states for our dashboard. Use ui-patterns skill."*
+>>>>>>> alpham8/main
 
 ---
 
@@ -1658,7 +1793,6 @@ The methodologies and frameworks referenced in these skills are the intellectual
 - **High Performance Browser Networking**: Ilya Grigorik
 - **Getting Real**: Jason Fried, David Heinemeier Hansson
 - **Rework**: Jason Fried, David Heinemeier Hansson
-- **Shape Up**: Ryan Singer
 - **Steve Jobs**: Walter Isaacson
 - **Insanely Simple**: Ken Segall
 - **Creative Selection**: Ken Kocienda
@@ -1669,6 +1803,9 @@ The methodologies and frameworks referenced in these skills are the intellectual
 - **Team Topologies**: Matthew Skelton, Manuel Pais
 - **High Output Management**: Andrew S. Grove
 - **Lean Analytics**: Alistair Croll, Benjamin Yoskovitz
+- **Laws of UX**: Jon Yablonski
+- **Gestalt psychology**: Max Wertheimer, Kurt Koffka, Wolfgang Köhler (public domain research)
+- **UI Patterns**: Nielsen Norman Group (Jakob Nielsen, Don Norman), Smashing Magazine
 
 The 12 metaskills (create/improve/grow × business/website/app, improve-code-quality, remove-technical-debt, design-code-architecture) are orchestration workflows authored by Wondel.ai. They sequence and invoke the skills above; the frameworks they reference remain the intellectual property of the authors listed here.
 

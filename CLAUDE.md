@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is a collection of 62 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents. Skills provide specialized domain knowledge and frameworks for specific use cases (UX design, marketing, product strategy, sales, operations, positioning, virality, code quality, systems architecture, etc.). Twelve of them are **metaskills** — guided journeys that orchestrate the other skills step by step toward a goal.
+This is a collection of 65 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents. Skills provide specialized domain knowledge and frameworks for specific use cases (UX design, marketing, product strategy, sales, operations, positioning, virality, code quality, systems architecture, etc.). Twelve of them are **metaskills** — guided journeys that orchestrate the other skills step by step toward a goal.
 
 ## Repository Structure
 
@@ -30,12 +30,12 @@ skills/
 
 The Codex plugin standard (`plugins/` + `.agents/plugins/marketplace.json` + `.codex/plugins/marketplace.json`) is **generated from `.claude-plugin/marketplace.json`** by `scripts/generate-codex-plugins.sh` — same 10 collections, same skill membership, versions tracked automatically. Never hand-edit the generated trees.
 
-## Current Skills (62)
+## Current Skills (65)
 
 | Category | Skills |
 |----------|--------|
 | **Metaskills** | create-business, create-website, create-app, improve-business, improve-website, improve-app, grow-business, grow-website, grow-app, improve-code-quality, remove-technical-debt, design-code-architecture |
-| **UX/Design** | refactoring-ui, ios-hig-design, ux-heuristics, hooked-ux, improve-retention, web-typography, top-design, design-everyday-things, lean-ux, microinteractions, steve-jobs-design-review |
+| **UX/Design** | refactoring-ui, ios-hig-design, ux-heuristics, hooked-ux, improve-retention, web-typography, top-design, design-everyday-things, lean-ux, microinteractions, steve-jobs-design-review, gestalt-ui, laws-of-ux, ui-patterns |
 | **Marketing/CRO** | cro-methodology, storybrand-messaging, scorecard-marketing, contagious, one-page-marketing |
 | **Sales/Influence** | influence-psychology, predictable-revenue, made-to-stick, hundred-million-offers |
 | **Product/Innovation** | jobs-to-be-done, lean-startup, design-sprint, inspired-product, continuous-discovery, 37signals-way |
