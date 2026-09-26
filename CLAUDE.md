@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is a collection of 65 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents. Skills provide specialized domain knowledge and frameworks for specific use cases (UX design, marketing, product strategy, sales, operations, positioning, virality, code quality, systems architecture, etc.). Twelve of them are **metaskills** — guided journeys that orchestrate the other skills step by step toward a goal.
+This is a collection of 68 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents. Skills provide specialized domain knowledge and frameworks for specific use cases (UX design, marketing, product strategy, sales, operations, positioning, virality, code quality, systems architecture, etc.). Fourteen of them are **metaskills** — guided journeys that orchestrate the other skills step by step toward a goal.
 
 ## Repository Structure
 
@@ -16,32 +16,35 @@ skills/
 │   ├── SKILL.md           # Main skill file with YAML frontmatter + markdown instructions
 │   └── references/        # Supporting reference files (optional)
 │       └── *.md
-├── scripts/               # sync-ide-skills.sh, generate-codex-plugins.sh, sync-marketplace-versions.sh
+├── scripts/               # sync-ide-skills.sh, generate-plugins.sh, sync-marketplace-versions.sh
 ├── .github/workflows/     # CI: syncs marketplace versions to the GitHub release
 ├── CLAUDE.md              # This file
 ├── README.md              # Skill catalog with descriptions and installation instructions
 │
 │   # ---- everything below is GENERATED (do not hand-edit) ----
-├── .claude/ .cursor/ .windsurf/ .pi/ .agents/ .codex/  # per-IDE skills/ symlink mirrors (sync-ide-skills.sh)
-├── .agents/plugins/marketplace.json                     # Codex plugin marketplace (.agents standard)
-├── .codex/plugins/marketplace.json                      # Codex plugin marketplace (native .codex mirror)
-└── plugins/{collection}/                                # Codex plugins: .codex-plugin/plugin.json + skills/
+├── .claude/ .cursor/ .windsurf/ .pi/  # per-IDE skills/ symlink mirrors (sync-ide-skills.sh)
+├── .agents/
+│   ├── skills/            # flat skill symlinks for Codex / .agents-convention agents
+│   └── plugins/marketplace.json   # Codex plugin marketplace (mirrors .claude-plugin/)
+├── .codex/plugins/marketplace.json # Codex CLI compatibility mirror
+├── plugins/{collection}/  # dual-format: .codex-plugin/plugin.json (Codex) + plugin.json (Agent Plugins) + skills/ copies
+└── plugins/wondelai-skills/   # all-in-one dual-format bundle (every skill)
 ```
 
-The Codex plugin standard (`plugins/` + `.agents/plugins/marketplace.json` + `.codex/plugins/marketplace.json`) is **generated from `.claude-plugin/marketplace.json`** by `scripts/generate-codex-plugins.sh` — same 10 collections, same skill membership, versions tracked automatically. Never hand-edit the generated trees.
+The Codex plugin standard (`plugins/` + `.agents/plugins/marketplace.json` + `.codex/plugins/marketplace.json`) and the [Agent Plugins](https://agent-plugins.org/) standard (root `plugin.json` in each `plugins/*` dir, plus the `plugins/wondelai-skills` all-in-one bundle) are **generated from `.claude-plugin/marketplace.json`** by `scripts/generate-plugins.sh` — the same 10 collections plus the all-in-one bundle, same skill membership, versions tracked automatically. The plugin trees contain **copies** of the skills, not symlinks (the Agent Plugins spec requires all paths to resolve inside the plugin root), so after editing any skill's `SKILL.md` or `references/`, re-run `scripts/sync-ide-skills.sh` to refresh them. Never hand-edit the generated trees.
 
-## Current Skills (65)
+## Current Skills (68)
 
 | Category | Skills |
 |----------|--------|
-| **Metaskills** | create-business, create-website, create-app, improve-business, improve-website, improve-app, grow-business, grow-website, grow-app, improve-code-quality, remove-technical-debt, design-code-architecture |
-| **UX/Design** | refactoring-ui, ios-hig-design, ux-heuristics, hooked-ux, improve-retention, web-typography, top-design, design-everyday-things, lean-ux, microinteractions, steve-jobs-design-review, gestalt-ui, laws-of-ux, ui-patterns |
+| **Metaskills** | create-business, create-website, create-app, improve-business, improve-website, improve-app, grow-business, grow-website, grow-app, improve-code-quality, remove-technical-debt, design-code-architecture, conversion-optimization, architecture-optimization |
+| **UX/Design** | refactoring-ui, ios-hig-design, ux-heuristics, gestalt-ui, laws-of-ux, ui-patterns, hooked-ux, improve-retention, web-typography, top-design, design-everyday-things, lean-ux, microinteractions, steve-jobs-design-review |
 | **Marketing/CRO** | cro-methodology, storybrand-messaging, scorecard-marketing, contagious, one-page-marketing |
 | **Sales/Influence** | influence-psychology, predictable-revenue, made-to-stick, hundred-million-offers |
 | **Product/Innovation** | jobs-to-be-done, lean-startup, design-sprint, inspired-product, continuous-discovery, 37signals-way |
 | **Product/Strategy** | mom-test, negotiation, monetizing-innovation, lean-analytics |
 | **Strategy/Growth** | crossing-the-chasm, blue-ocean-strategy, traction-eos, obviously-awesome, good-strategy-bad-strategy, cold-start-problem |
-| **Code Quality** | clean-code, refactoring-patterns, software-design-philosophy, pragmatic-programmer, domain-driven-design, working-with-legacy-code |
+| **Code Quality** | clean-code, refactoring-patterns, software-design-philosophy, pragmatic-programmer, domain-driven-design, working-with-legacy-code, technical-documentation |
 | **Systems/Architecture** | ddia-systems, system-design, clean-architecture, release-it, high-perf-browser, team-topologies |
 | **Team/Management** | drive-motivation, high-output-management |
 
@@ -96,6 +99,8 @@ See [references/file.md](references/file.md) when <situation> — <what it adds>
 (Author bio)
 ```
 
+Skills adapted from a non-book source (a public style guide or standard, e.g. `technical-documentation`) replace `## About the Author` with `## About the Source` — the same 2-3 sentences plus the source's license and an attribution line; everything else in the template is unchanged.
+
 ### Required Fields
 - `name`: Unique identifier (lowercase, hyphens for spaces, max 64 chars)
 - `description`: What the skill does and when to use it (max 1024 chars). Use numbered use cases: `(1) ..., (2) ..., (3) ...`
@@ -107,9 +112,9 @@ See [references/file.md](references/file.md) when <situation> — <what it adds>
 
 The YAML frontmatter `description` field is critical for skill discovery - it should include keywords and trigger phrases that help match user requests to the skill. Single quotes in YAML values must be escaped by doubling them (`''`).
 
-### Metaskill Format (the 12 guided journeys)
+### Metaskill Format (the 14 guided journeys)
 
-The 12 metaskills (create/improve/grow × business/website/app, improve-code-quality, remove-technical-debt, design-code-architecture) are **orchestrators, not book skills** — do not force-fit the book template above (no Scoring, Further Reading, or About the Author). Their SKILL.md sections, in order: intro → `## Core Principle` (the journey's sequencing law) → `## Journey Map` (Phase | Skill | Question it answers | Artifact) → `## Operating Rules` (rules 1–7 word-identical across all 12; rule 8 is the journey-specific guardrail) → `## Intake` → `## Phases` (each phase has six fields: Purpose, Brief (fallback), Invoke, Decide with the user, Artifact, Done when) → `## Optional Phases` → `## Common Mistakes` → `## Completing the Journey`. Descriptions follow a 5-sentence formula whose 4th sentence routes to sibling metaskills (negative triggers) — keep the routing mutually consistent when editing. Metaskills write UPPERCASE artifacts into the *user's project* `docs/` folder; the canonical skeletons and section headings live in [docs/ARTIFACT-REGISTRY.md](docs/ARTIFACT-REGISTRY.md) — artifact headings quoted in phases must match it, and each metaskill's `references/artifact-templates.md` copies the skeletons it creates.
+The 14 metaskills (create/improve/grow × business/website/app, improve-code-quality, remove-technical-debt, design-code-architecture, conversion-optimization, architecture-optimization) are **orchestrators, not book skills** — do not force-fit the book template above (no Scoring, Further Reading, or About the Author). Their SKILL.md sections, in order: intro → `## Core Principle` (the journey's sequencing law) → `## Journey Map` (Phase | Skill | Question it answers | Artifact) → `## Operating Rules` (rules 1–7 word-identical across all 14; rule 8 is the journey-specific guardrail) → `## Intake` → `## Phases` (each phase has six fields: Purpose, Brief (fallback), Invoke, Decide with the user, Artifact, Done when) → `## Optional Phases` → `## Common Mistakes` → `## Completing the Journey`. Descriptions follow a 5-sentence formula whose 4th sentence routes to sibling metaskills (negative triggers) — keep the routing mutually consistent when editing. Metaskills write UPPERCASE artifacts into the *user's project* `docs/` folder; the canonical skeletons and section headings live in [docs/ARTIFACT-REGISTRY.md](docs/ARTIFACT-REGISTRY.md) — artifact headings quoted in phases must match it, and each metaskill's `references/artifact-templates.md` copies the skeletons it creates. The two optimization metaskills (conversion-optimization, architecture-optimization) additionally ship `references/methods.md` — the full per-phase method — so they run standalone when no constituent skill is installed.
 
 ## Adding New Skills
 
@@ -122,7 +127,7 @@ The 12 metaskills (create/improve/grow × business/website/app, improve-code-qua
    - Add "Skill Details" section (description, About the author, Use when, Example prompts)
    - Add to "Copyright & Disclaimer" section
 5. Add the skill's path to `.claude-plugin/marketplace.json` under the appropriate plugin collection (add the `./skill-name` entry only — do **not** hand-pick a version; see Versioning Policy)
-6. Run `scripts/sync-ide-skills.sh` — regenerates the IDE mirrors (`.claude/.cursor/.windsurf/.pi/.agents/.codex`) **and** the Codex plugin marketplace (`plugins/` + `.agents/plugins/` + `.codex/plugins/`). These are generated; never hand-edit them.
+6. Run `scripts/sync-ide-skills.sh` — regenerates the IDE mirrors (`.claude/.cursor/.windsurf/.pi/.agents`) **and** the plugin trees (`plugins/` + `.agents/plugins/` — Codex and Agent Plugins formats, including the `wondelai-skills` bundle). These are generated; never hand-edit them.
 
 ## Installation
 
@@ -137,25 +142,9 @@ The 12 metaskills (create/improve/grow × business/website/app, improve-code-qua
 /plugin install product-innovation@wondelai-skills  # Lean Startup, Design Sprint, Design of Everyday Things, Inspired, Continuous Discovery
 /plugin install strategy-growth@wondelai-skills     # Crossing the Chasm, Blue Ocean Strategy, Traction/EOS, Obviously Awesome, Good Strategy Bad Strategy, Cold Start Problem
 /plugin install team-motivation@wondelai-skills     # Drive (Autonomy, Mastery, Purpose), High Output Management
-/plugin install code-craftsmanship@wondelai-skills  # Clean Code, Refactoring Patterns, Software Design Philosophy, Pragmatic Programmer, DDD, Working with Legacy Code
+/plugin install code-craftsmanship@wondelai-skills  # Clean Code, Refactoring Patterns, Software Design Philosophy, Pragmatic Programmer, DDD, Working with Legacy Code, Google Docs Style
 /plugin install systems-architecture@wondelai-skills # DDIA, System Design, Clean Architecture, Release It!, High Performance Browser Networking, Team Topologies
-/plugin install metaskills@wondelai-skills           # 12 guided journeys: create/improve/grow × business/website/app + improve-code-quality, remove-technical-debt, design-code-architecture
-```
-
-### Via Codex CLI Plugin Marketplace
-```bash
-codex plugin marketplace add wondelai/skills
-
-codex plugin add product-strategy@wondelai-skills
-codex plugin add ux-design@wondelai-skills
-codex plugin add marketing-cro@wondelai-skills
-codex plugin add sales-influence@wondelai-skills
-codex plugin add product-innovation@wondelai-skills
-codex plugin add strategy-growth@wondelai-skills
-codex plugin add team-motivation@wondelai-skills
-codex plugin add code-craftsmanship@wondelai-skills
-codex plugin add systems-architecture@wondelai-skills
-codex plugin add metaskills@wondelai-skills
+/plugin install metaskills@wondelai-skills           # 14 guided journeys: create/improve/grow × business/website/app + improve-code-quality, remove-technical-debt, design-code-architecture, conversion-optimization, architecture-optimization
 ```
 
 ### Via skills.sh
@@ -175,6 +164,8 @@ Skills use semantic versioning (`MAJOR.MINOR.PATCH`):
 - Content addition/enhancement → bump MINOR (e.g., `1.0.0` → `1.1.0`)
 - Small fix/typo → bump PATCH (e.g., `1.1.0` → `1.1.1`)
 
+Then re-run `scripts/sync-ide-skills.sh` — the `plugins/` trees embed copies of every skill and go stale otherwise.
+
 Example:
 ```yaml
 metadata:
@@ -184,7 +175,13 @@ metadata:
 
 ### Marketplace versions (automated)
 
-The versions in `.claude-plugin/marketplace.json` (top-level `metadata.version` and every `plugins[].version`) are **not** hand-edited. They are auto-synced to the latest GitHub release by `.github/workflows/sync-marketplace-version.yml`, which runs `scripts/sync-marketplace-versions.sh` on each published release and commits the result to `main`. To ship: bump the affected skills' `SKILL.md` versions, merge, then publish a `vX.Y.Z` GitHub release — the workflow sets all marketplace versions to `X.Y.Z`. To sync without a release, run `scripts/sync-marketplace-versions.sh X.Y.Z` locally.
+The versions in `.claude-plugin/marketplace.json` (top-level `metadata.version` and every `plugins[].version`) are **not** hand-edited. They are auto-synced to the latest GitHub release by `.github/workflows/sync-marketplace-version.yml`, which runs `scripts/sync-marketplace-versions.sh` on each published release (which in turn regenerates the `plugins/` and `.agents/plugins/` trees via `scripts/generate-plugins.sh`) and commits the result to `main`. To ship: bump the affected skills' `SKILL.md` versions, merge, then publish a `vX.Y.Z` GitHub release — the workflow sets all marketplace versions to `X.Y.Z`. To sync without a release, run `scripts/sync-marketplace-versions.sh X.Y.Z` locally.
+
+## Testing
+
+**Tautological tests considered harmful.** A test that restates the implementation instead of pinning behavior proves nothing: it passes for any code that compiles, fails only when the implementation is edited, and turns every refactor into a test rewrite. Typical shapes — asserting a mock returns what the test told it to return, re-deriving the expected value with the same expression the code under test uses, `expect(CONSTANT).toBe(CONSTANT)`, or snapshotting output nobody read before approving it.
+
+Write tests against observable behavior and hand-computed expected values instead. Delete tautological tests on sight rather than fixing them — they carry no coverage to preserve. This applies to any test written in this repo and to the test examples inside the code-quality skills (`clean-code`, `working-with-legacy-code`, `refactoring-patterns`); a characterization test that pins an *observed* value is not tautological, but one that pins whatever the code recomputes at assert time is.
 
 ## Commit Policy
 

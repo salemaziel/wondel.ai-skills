@@ -1,7 +1,7 @@
 {
   "name": "ux-design",
-  "version": "1.5.1",
-  "description": "UX and UI design skills including Refactoring UI, iOS HIG design, usability heuristics, habit-forming product design, behavior design for retention, web typography, award-winning top-design, Steve Jobs-style design reviews, and Don Norman's foundational design principles",
+  "version": "1.8.0",
+  "description": "UX and UI design skills including Refactoring UI, iOS HIG design, usability heuristics, Gestalt principles, Laws of UX, UI patterns, habit-forming product design, behavior design for retention, web typography, award-winning top-design, Steve Jobs-style design reviews, and Don Norman's foundational design principles",
   "license": "MIT",
   "keywords": [
     "ux",
@@ -23,7 +23,10 @@
     "ui-polish",
     "font-pairing",
     "microinteractions",
-    "usability-audit"
+    "usability-audit",
+    "gestalt",
+    "laws-of-ux",
+    "ui-patterns"
   ],
   "repository": "https://github.com/wondelai/skills",
   "homepage": "https://github.com/wondelai/skills",

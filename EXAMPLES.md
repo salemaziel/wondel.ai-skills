@@ -1923,6 +1923,27 @@ Use working-with-legacy-code skill.
 
 ---
 
+### Audit and Fix the README Before Launch
+
+> Your README grew by accretion; new users still open issues asking how to install.
+
+**Prompt:**
+
+```
+Audit README.md against a real docs style guide. I want:
+(1) A scored report — what fails, where, and which rule
+(2) The rewritten README — same facts, every command
+    verified against the CLI's --help, placeholders in
+    ALL_CAPS, numbered steps, no "click here"
+(3) A change log of what you changed and why
+
+Use technical-documentation skill.
+```
+
+**Skills used:** technical-documentation
+
+---
+
 ## Tech Leads & Architects
 
 You design systems, review architecture, mentor engineers, and make decisions that are expensive to reverse.
@@ -2155,6 +2176,28 @@ Use high-output-management skill.
 ```
 
 **Skills used:** high-output-management
+
+---
+
+### Set the Team's Documentation Standard
+
+> Six engineers write docs six ways: some pages say "log in", some "sign in"; docstrings range from empty to essays; the changelog is a git log.
+
+**Prompt:**
+
+```
+Set a documentation standard for our TypeScript SDK repo:
+(1) Audit docs/ and the JSDoc in src/ — score them and
+    list the top 10 recurring problems with rule IDs
+(2) Write docs/STYLE.md: our conventions layered on the
+    Google style guide, including the CHANGELOG format
+(3) Rewrite one API reference page and the CHANGELOG as
+    the reference examples the team copies from
+
+Use technical-documentation skill.
+```
+
+**Skills used:** technical-documentation
 
 ---
 
@@ -2391,6 +2434,47 @@ Use design-code-architecture skill.
 
 ---
 
+### Fix the One Flow That Leaks the Most Money
+
+> Traffic is fine and the product is fine, but people start the checkout and never finish it.
+
+**Prompt:**
+
+```
+Our [signup/checkout/onboarding] flow leaks: [paste the funnel
+numbers or symptoms]. Run the conversion-optimization journey —
+find the leak with numbers first, research why people drop in
+their own words, then fix message, offer, proof, and friction.
+Every change ships as a test with a pre-committed metric.
+
+Use conversion-optimization skill.
+```
+
+**Skills used:** conversion-optimization (orchestrates lean-analytics, cro-methodology, storybrand-messaging, hundred-million-offers, influence-psychology, design-everyday-things)
+
+---
+
+### Make a Working App Measurably Faster
+
+> It shipped, it earns, and it has gotten slow — but nobody knows which part is actually slow.
+
+**Prompt:**
+
+```
+Our [stack] app has gotten slow: [paste p95s, slow endpoints, or
+the complaint]. Run the architecture-optimization journey —
+baseline and pin behavior first, then boundaries, hot-path
+refactors, the measured bottleneck, and the query layer. Keep a
+before/after ledger in docs/PERFORMANCE.md and revert anything
+that doesn't beat its baseline.
+
+Use architecture-optimization skill.
+```
+
+**Skills used:** architecture-optimization (orchestrates working-with-legacy-code, clean-architecture, software-design-philosophy, refactoring-patterns, system-design, ddia-systems, release-it, pragmatic-programmer)
+
+---
+
 ## Skill Index
 
 Quick reference showing where each skill appears in the examples above.
@@ -2445,6 +2529,7 @@ Quick reference showing where each skill appears in the examples above.
 | cold-start-problem | Startup Founders |
 | lean-analytics | Product Managers |
 | working-with-legacy-code | Software Engineers |
+| technical-documentation | Software Engineers, Tech Leads |
 | team-topologies | Tech Leads |
 | high-output-management | Tech Leads |
 | create-business | Guided Journeys |
@@ -2459,3 +2544,5 @@ Quick reference showing where each skill appears in the examples above.
 | improve-code-quality | Guided Journeys |
 | remove-technical-debt | Guided Journeys |
 | design-code-architecture | Guided Journeys |
+| conversion-optimization | Guided Journeys |
+| architecture-optimization | Guided Journeys |

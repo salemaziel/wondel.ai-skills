@@ -1,6 +1,6 @@
 # Wondel.ai Agent Skills — Business, Marketing, UX & Coding Frameworks from Bestselling Books
 
-65 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents: 53 expert frameworks from bestselling books, plus 12 **metaskills** — guided journeys that orchestrate them step by step to create, improve, or grow a business, website, or app, and to improve code quality, remove technical debt, or design code architecture. Each metaskill asks you the decision questions phase by phase and keeps its state in your project's `docs/` folder, so a journey survives across sessions. Browse all skills at [skills.wondel.ai](https://skills.wondel.ai/).
+68 agent skills for Claude, Claude Code, Claude Cowork, Codex, Cursor, OpenClaw, Hermes Agent and other agentskills.io-compatible agents — also packaged as spec-conformant [Agent Plugins](https://agent-plugins.org/): 54 expert frameworks from bestselling books and industry style guides, plus 14 **metaskills** — guided journeys that orchestrate them step by step to create, improve, or grow a business, website, or app, and to improve code quality, remove technical debt, design code architecture, optimize a conversion flow, or optimize an existing codebase. Each metaskill asks you the decision questions phase by phase and keeps its state in your project's `docs/` folder, so a journey survives across sessions. Browse all skills at [skills.wondel.ai](https://skills.wondel.ai/).
 
 ## Installation
 
@@ -12,15 +12,15 @@
 
 # Install plugin collections
 /plugin install product-strategy@wondelai-skills      # Jobs to Be Done, Negotiation, Mom Test
-/plugin install ux-design@wondelai-skills             # Refactoring UI, iOS HIG, UX Heuristics, Hooked, Improve Retention, Web Typography, Top Design, Design of Everyday Things, Lean UX, Microinteractions, Steve Jobs Design Review, Gestalt UI, Laws of UX, UI Patterns
+/plugin install ux-design@wondelai-skills             # Refactoring UI, iOS HIG, UX Heuristics, Gestalt, Laws of UX, UI Patterns, Hooked, Improve Retention, Web Typography, Top Design, Design of Everyday Things, Lean UX, Microinteractions, Steve Jobs Design Review
 /plugin install marketing-cro@wondelai-skills         # CRO Methodology, StoryBrand, Scorecard Marketing, Contagious, 1-Page Marketing
 /plugin install sales-influence@wondelai-skills       # Influence Psychology, Predictable Revenue, Made to Stick, $100M Offers
 /plugin install product-innovation@wondelai-skills    # Lean Startup, Design Sprint, Design of Everyday Things, Inspired, Continuous Discovery, 37signals Way
 /plugin install strategy-growth@wondelai-skills       # Crossing the Chasm, Blue Ocean Strategy, Traction/EOS, Obviously Awesome
 /plugin install team-motivation@wondelai-skills       # Drive (Autonomy, Mastery, Purpose)
-/plugin install code-craftsmanship@wondelai-skills    # Clean Code, Refactoring Patterns, Software Design Philosophy, Pragmatic Programmer, DDD
+/plugin install code-craftsmanship@wondelai-skills    # Clean Code, Refactoring Patterns, Software Design Philosophy, Pragmatic Programmer, DDD, Working with Legacy Code, Google Docs Style
 /plugin install systems-architecture@wondelai-skills  # DDIA, System Design, Clean Architecture, Release It!, High Performance Browser Networking
-/plugin install metaskills@wondelai-skills            # 12 guided journeys: create/improve/grow a business, website, or app + code quality, tech debt, architecture
+/plugin install metaskills@wondelai-skills            # 14 guided journeys: create/improve/grow a business, website, or app + code quality, tech debt, architecture, conversion, optimization
 ```
 
 ### Via skills.sh
@@ -82,6 +82,7 @@ npx skills add wondelai/skills/working-with-legacy-code --global
 npx skills add wondelai/skills/team-topologies --global
 npx skills add wondelai/skills/high-output-management --global
 npx skills add wondelai/skills/lean-analytics --global
+npx skills add wondelai/skills/technical-documentation --global
 npx skills add wondelai/skills/gestalt-ui --global
 npx skills add wondelai/skills/laws-of-ux --global
 npx skills add wondelai/skills/ui-patterns --global
@@ -99,30 +100,24 @@ npx skills add wondelai/skills/grow-app --global
 npx skills add wondelai/skills/improve-code-quality --global
 npx skills add wondelai/skills/remove-technical-debt --global
 npx skills add wondelai/skills/design-code-architecture --global
-```
+npx skills add wondelai/skills/conversion-optimization --global
+npx skills add wondelai/skills/architecture-optimization --global
 ```
 
 ### Via OpenAI Codex
 
 Codex adopted the same open `SKILL.md` standard, so every skill here works in Codex CLI too:
 
-- **Via Codex Plugin Marketplace CLI**:
-  ```bash
-  codex plugin marketplace add wondelai/skills
-
-  codex plugin add product-strategy@wondelai-skills
-  codex plugin add ux-design@wondelai-skills
-  codex plugin add marketing-cro@wondelai-skills
-  codex plugin add sales-influence@wondelai-skills
-  codex plugin add product-innovation@wondelai-skills
-  codex plugin add strategy-growth@wondelai-skills
-  codex plugin add team-motivation@wondelai-skills
-  codex plugin add code-craftsmanship@wondelai-skills
-  codex plugin add systems-architecture@wondelai-skills
-  codex plugin add metaskills@wondelai-skills
-  ```
 - **Individual skills** — the `npx skills add wondelai/skills/<name>` commands above target Codex as well (Codex is a supported [agentskills.io](https://agentskills.io) agent).
-- **Auto-discovery in cloned repos** — this repo ships a Codex plugin marketplace at [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) and [`.codex/plugins/marketplace.json`](.codex/plugins/marketplace.json) with the same 10 collections. In a clone, Codex auto-discovers it (and the skills under `.agents/skills/` / `.codex/skills/`); manage installs from the `/plugins` menu in the Codex TUI. The Codex manifests are generated from `.claude-plugin/marketplace.json` (single source of truth) by `scripts/generate-codex-plugins.sh`.
+- **As Codex plugins** — this repo ships Codex plugin marketplaces at [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) and [`.codex/plugins/marketplace.json`](.codex/plugins/marketplace.json) with the same 10 collections plus an all-in-one `wondelai-skills` bundle. In a clone, Codex auto-discovers the `.agents` marketplace and skills; manage installs from the `/plugins` menu in the Codex TUI. The Codex manifests are generated from `.claude-plugin/marketplace.json` (single source of truth) by `scripts/generate-plugins.sh`.
+
+### Via Agent Plugins (agent-plugins.org)
+
+The same collections also ship in the open [Agent Plugins](https://agent-plugins.org/) format (spec v1.0.0), so any conforming client can install them:
+
+- **Collection plugins** — each `plugins/<collection>/` directory is a self-contained Agent Plugin: a root `plugin.json` manifest plus real copies of its skills under `skills/` — the same 10 collections as the Claude marketplace.
+- **All-in-one bundle** — [`plugins/wondelai-skills/`](plugins/wondelai-skills/) is a dual-format Codex and Agent Plugin containing all 68 skills.
+- **Installing** — the spec defines the package format; installation is client-specific. Clone this repo and point your client at a plugin directory (e.g. `plugins/marketing-cro` or `plugins/wondelai-skills`). The manifests are generated from [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) (single source of truth) by `scripts/generate-plugins.sh`.
 
 ## Available Skills
 
@@ -169,7 +164,7 @@ Codex adopted the same open `SKILL.md` standard, so every skill here works in Co
 | [clean-architecture](https://skills.wondel.ai/skills/clean-architecture/) | The Dependency Rule: dependencies point inward from frameworks to entities | [Robert C. Martin](https://x.com/unclebobmartin)'s [*"Clean Architecture"*](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164?tag=wondelai00-20) |
 | [release-it](https://skills.wondel.ai/skills/release-it/) | Production-ready systems: circuit breakers, bulkheads, timeouts, retry logic | [Michael Nygard](https://x.com/mtnygard)'s [*"Release It!"*](https://www.amazon.com/Release-Design-Deploy-Production-Ready-Software/dp/1680502395?tag=wondelai00-20) |
 | [high-perf-browser](https://skills.wondel.ai/skills/high-perf-browser/) | Web performance: network protocols, resource loading, browser rendering | [Ilya Grigorik](https://x.com/igrigorik)'s [*"High Performance Browser Networking"*](https://www.amazon.com/High-Performance-Browser-Networking-performance/dp/1449344763?tag=wondelai00-20) |
-| [37signals-way](https://skills.wondel.ai/skills/37signals-way/) | Build less, shape work, ship in six-week cycles with small autonomous teams | [Jason Fried](https://x.com/jasonfried) & [DHH](https://x.com/dhh)'s [*"Getting Real"*](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812?tag=wondelai00-20), [*"Rework"*](https://www.amazon.com/Rework-Jason-Fried/dp/0307463745?tag=wondelai00-20) & [Ryan Singer](https://x.com/rjs)'s [*"Shape Up"*](https://www.amazon.com/Shape-Up-Circles-Ship-Work/dp/B09ZSY1MWP?tag=wondelai00-20) |
+| [37signals-way](https://skills.wondel.ai/skills/37signals-way/) | Build less, shape work, ship in six-week cycles with small autonomous teams | [Jason Fried](https://x.com/jasonfried) & [DHH](https://x.com/dhh)'s [*"Getting Real"*](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812?tag=wondelai00-20), [*"Rework"*](https://www.amazon.com/Rework-Jason-Fried/dp/0307463745?tag=wondelai00-20) & [Ryan Singer](https://x.com/rjs)'s [*"Shape Up"*](https://basecamp.com/shapeup) |
 | [steve-jobs-design-review](https://skills.wondel.ai/skills/steve-jobs-design-review/) | Jobs-style design reviews: ruthless simplicity, focus, demo culture, binary verdicts | [Walter Isaacson](https://x.com/WalterIsaacson)'s [*"Steve Jobs"*](https://www.amazon.com/Steve-Jobs-Walter-Isaacson/dp/1451648537?tag=wondelai00-20), [Ken Segall](https://x.com/ksegall)'s [*"Insanely Simple"*](https://www.amazon.com/Insanely-Simple-Obsession-Drives-Success/dp/1591846218?tag=wondelai00-20) & [Ken Kocienda](https://x.com/kocienda)'s [*"Creative Selection"*](https://www.amazon.com/Creative-Selection-Inside-Apples-Process/dp/1250194466?tag=wondelai00-20) |
 | [good-strategy-bad-strategy](https://skills.wondel.ai/skills/good-strategy-bad-strategy/) | Strategy kernels: diagnosis, guiding policy, coherent action — and bad-strategy detection | Richard Rumelt's [*"Good Strategy Bad Strategy"*](https://www.amazon.com/Good-Strategy-Bad-Strategy-Difference/dp/0307886239?tag=wondelai00-20) |
 | [monetizing-innovation](https://skills.wondel.ai/skills/monetizing-innovation/) | Price-before-product: willingness-to-pay research, packaging, monetization models | Madhavan Ramanujam & Georg Tacke's [*"Monetizing Innovation"*](https://www.amazon.com/Monetizing-Innovation-Companies-Design-Product/dp/1119240867?tag=wondelai00-20) |
@@ -178,9 +173,7 @@ Codex adopted the same open `SKILL.md` standard, so every skill here works in Co
 | [team-topologies](https://skills.wondel.ai/skills/team-topologies/) | Four team types, three interaction modes, Conway's law, team cognitive load | [Matthew Skelton](https://x.com/matthewpskelton) & [Manuel Pais](https://x.com/manupaisable)'s [*"Team Topologies"*](https://www.amazon.com/Team-Topologies-Organizing-Business-Technology/dp/1942788819?tag=wondelai00-20) |
 | [high-output-management](https://skills.wondel.ai/skills/high-output-management/) | Managerial leverage, one-on-ones, OKRs, task-relevant maturity | Andrew S. Grove's [*"High Output Management"*](https://www.amazon.com/High-Output-Management-Andrew-Grove/dp/0679762884?tag=wondelai00-20) |
 | [lean-analytics](https://skills.wondel.ai/skills/lean-analytics/) | One Metric That Matters, metrics by business model and stage, benchmarks | [Alistair Croll](https://x.com/acroll) & [Ben Yoskovitz](https://x.com/byosko)'s [*"Lean Analytics"*](https://www.amazon.com/Lean-Analytics-Better-Startup-Faster/dp/1449335675?tag=wondelai00-20) |
-| [gestalt-ui](https://skills.wondel.ai/skills/gestalt-ui/) | Apply Gestalt principles of visual perception to UI design | Gestalt psychology research (Wertheimer, Koffka, Köhler) applied to digital interfaces |
-| [laws-of-ux](https://skills.wondel.ai/skills/laws-of-ux/) | Apply evidence-based UX laws to interaction design decisions | [Jon Yablonski](https://x.com/jonyablonski)'s [*"Laws of UX"*](https://www.amazon.com/Laws-UX-Using-Psychology-Products/dp/149205531X?tag=wondelai00-20) |
-| [ui-patterns](https://skills.wondel.ai/skills/ui-patterns/) | Apply proven UI component patterns and scanning behaviour to build effective interfaces | Nielsen Norman Group research, Smashing Magazine best practices |
+| [technical-documentation](https://skills.wondel.ai/skills/technical-documentation/) | Audit, write, and improve developer docs: reader fit, procedures, code samples, API reference, changelogs | [Google](https://developers.google.com/style)'s *Developer Documentation Style Guide* |
 | [create-business](https://skills.wondel.ai/skills/create-business/) | Guided journey: raw idea → validated, positioned, priced business | Orchestrates 10 skills, from jobs-to-be-done to crossing-the-chasm |
 | [create-website](https://skills.wondel.ai/skills/create-website/) | Guided journey: blank page → high-converting website | Orchestrates 10 skills, from storybrand-messaging to steve-jobs-design-review |
 | [create-app](https://skills.wondel.ai/skills/create-app/) | Guided journey: idea → validated, well-architected app | Orchestrates 10 skills, from lean-startup to software-design-philosophy |
@@ -193,8 +186,10 @@ Codex adopted the same open `SKILL.md` standard, so every skill here works in Co
 | [improve-code-quality](https://skills.wondel.ai/skills/improve-code-quality/) | Guided journey: vibe-coded prototype → production-ready code | Orchestrates 9 skills, from working-with-legacy-code to ddia-systems |
 | [remove-technical-debt](https://skills.wondel.ai/skills/remove-technical-debt/) | Guided journey: pay down debt in place without stopping shipping | Orchestrates 8 skills, from working-with-legacy-code to domain-driven-design |
 | [design-code-architecture](https://skills.wondel.ai/skills/design-code-architecture/) | Guided journey: deliberate architecture for a new system | Orchestrates 8 skills, from clean-architecture to 37signals-way |
+| [conversion-optimization](https://skills.wondel.ai/skills/conversion-optimization/) | Guided journey: find, fix, and prove one leaking conversion flow | Orchestrates 6 skills, from lean-analytics to design-everyday-things |
+| [architecture-optimization](https://skills.wondel.ai/skills/architecture-optimization/) | Guided journey: make a working codebase measurably faster and cleaner | Orchestrates 8 skills, from working-with-legacy-code to pragmatic-programmer |
 
-> **Looking for real-world scenarios?** See [EXAMPLES.md](EXAMPLES.md) for 92 copy-pasteable prompts organized by persona (founders, PMs, marketers, designers, sales, copywriters, solopreneurs) — including one for each guided journey.
+> **Looking for real-world scenarios?** See [EXAMPLES.md](EXAMPLES.md) for 96 copy-pasteable prompts organized by persona (founders, PMs, marketers, designers, sales, copywriters, solopreneurs) — including one for each guided journey.
 
 ---
 
@@ -1154,7 +1149,7 @@ Optimize web performance through network protocols, resource loading, and browse
 
 Build lean, opinionated products using the 37signals philosophy: build less, shape work before building, ship in fixed six-week cycles with small autonomous teams, and say no to almost everything by default.
 
-**About the authors:** [Jason Fried](https://x.com/jasonfried) is the co-founder and CEO of 37signals (Basecamp, HEY), a prominent advocate for calm companies and product simplicity. [David Heinemeier Hansson (DHH)](https://x.com/dhh) is the co-founder and CTO of 37signals and creator of Ruby on Rails. Together they wrote [*"Getting Real"*](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812?tag=wondelai00-20) and [*"Rework"*](https://www.amazon.com/Rework-Jason-Fried/dp/0307463745?tag=wondelai00-20). [Ryan Singer](https://x.com/rjs) is the former Head of Strategy at 37signals and author of [*"Shape Up"*](https://www.amazon.com/Shape-Up-Circles-Ship-Work/dp/B09ZSY1MWP?tag=wondelai00-20).
+**About the authors:** [Jason Fried](https://x.com/jasonfried) is the co-founder and CEO of 37signals (Basecamp, HEY), a prominent advocate for calm companies and product simplicity. [David Heinemeier Hansson (DHH)](https://x.com/dhh) is the co-founder and CTO of 37signals and creator of Ruby on Rails. Together they wrote [*"Getting Real"*](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812?tag=wondelai00-20) and [*"Rework"*](https://www.amazon.com/Rework-Jason-Fried/dp/0307463745?tag=wondelai00-20). [Ryan Singer](https://x.com/rjs) is the former Head of Strategy at 37signals and author of [*"Shape Up"*](https://basecamp.com/shapeup).
 
 **Use when you need to:**
 - Shape work before giving it to a team (breadboarding, fat marker sketches, pitches)
@@ -1350,67 +1345,25 @@ Choose the One Metric That Matters for your business model and stage, kill vanit
 
 ---
 
-### [gestalt-ui](https://skills.wondel.ai/skills/gestalt-ui/)
+### [technical-documentation](https://skills.wondel.ai/skills/technical-documentation/)
 
-Apply Gestalt principles of visual perception to UI design. Group and organize elements, create visual hierarchies, and build intuitive layouts based on proximity, similarity, continuity, closure, figure/ground, and common region.
+Audit, write, and improve developer documentation the way Google's technical writers do: start from the reader's task, verify every command and parameter against the code, then apply the style guide in severity order — structure before voice, voice before word choice. Covers READMEs, getting-started guides, tutorials and how-tos, API reference and docstrings, CLI help text, changelogs, and migration guides, with a scored audit report and a rewrite that keeps the facts intact.
 
-**Based on:** Gestalt psychology research (Max Wertheimer, Kurt Koffka, Wolfgang Köhler) applied to digital interface design, synthesised from [Smashing Magazine](https://www.smashingmagazine.com/2014/03/design-principles-visual-perception-and-the-principles-of-gestalt/) and [Interaction Design Foundation](https://www.interaction-design.org/literature/topics/gestalt-principles).
-
-**Use when you need to:**
-- Group and organize UI elements effectively using spacing, borders, and visual connections
-- Create intuitive visual relationships between components
-- Audit layouts for perceptual clarity and unintended grouping
-- Design navigation, cards, forms, or dashboards that users understand instantly
-- Resolve conflicting visual signals between proximity, similarity, and containers
-
-**Example prompts:**
-- *"Audit this dashboard layout for Gestalt violations. Use gestalt-ui skill."*
-- *"These form fields feel disconnected. Fix the visual grouping. Use gestalt-ui skill."*
-- *"How should I use proximity and common region to group these settings? Use gestalt-ui skill."*
-- *"Score this card layout on Gestalt principle adherence. Use gestalt-ui skill."*
-
----
-
-### [laws-of-ux](https://skills.wondel.ai/skills/laws-of-ux/)
-
-Apply evidence-based UX laws to interaction design decisions. These behavioural psychology principles describe how humans perceive, decide, and act -- use them to design interfaces that work with human cognition, not against it.
-
-**About the author:** [Jon Yablonski](https://x.com/jonyablonski) is a designer and author of [*"Laws of UX"*](https://www.amazon.com/Laws-UX-Using-Psychology-Products/dp/149205531X?tag=wondelai00-20), synthesising decades of research from Fitts, Hick, Miller, Nielsen, and others into actionable design principles at [lawsofux.com](https://lawsofux.com/).
+**About the source material:** [Google's Developer Documentation Style Guide](https://developers.google.com/style) is the public house style Google's technical writers maintain for developers.google.com, Android, and Google Cloud, released under CC BY 4.0; the companion [Technical Writing One and Two](https://developers.google.com/tech-writing) courses are Google's internal engineer training made public. Release-note structure follows [Keep a Changelog](https://keepachangelog.com/).
 
 **Use when you need to:**
-- Size and position interactive targets effectively (Fitts's Law)
-- Reduce cognitive load and decision complexity (Hick's Law, Miller's Law)
-- Design progress indicators and memory-friendly interfaces (Goal-Gradient, Serial Position)
-- Resolve design trade-offs with psychological evidence
-- Optimise response times and perceived performance (Doherty Threshold)
-- Follow platform conventions or decide when to break them (Jakob's Law)
+- Audit a README, docs site, or API reference and get a scored report with exact fixes
+- Write a getting-started guide, tutorial, or how-to from the code without inventing commands
+- Rewrite confusing docs for clarity while preserving every fact
+- Turn weak docstrings or JSDoc into formulaic, complete API reference
+- Write a CHANGELOG, release notes, or a migration guide readers can act on
+- Set a documentation standard for a team and enforce it consistently
 
 **Example prompts:**
-- *"Our mobile buttons feel too small and hard to tap. Audit using Fitts's Law. Use laws-of-ux skill."*
-- *"Users abandon our settings page. Too many choices? Diagnose with Hick's Law. Use laws-of-ux skill."*
-- *"Design a progress indicator for our 6-step onboarding. Use laws-of-ux skill."*
-- *"Score this checkout flow against UX laws. Use laws-of-ux skill."*
-
----
-
-### [ui-patterns](https://skills.wondel.ai/skills/ui-patterns/)
-
-Apply proven UI component patterns and scanning behaviour to build effective interfaces. Concrete guidance for navigation, forms, buttons, cards, modals, tables, loading states, and notifications -- plus a decision reference for choosing between competing patterns.
-
-**Based on:** Nielsen Norman Group eye-tracking research, [Smashing Magazine](https://www.smashingmagazine.com/) best practices (navigation, forms, buttons), and industry-standard component design patterns.
-
-**Use when you need to:**
-- Design navigation that answers "Where am I? Where can I go? Where have I been?"
-- Build forms with optimal label placement, validation, and friction reduction
-- Choose between competing UI patterns (dropdown vs radio, modal vs inline, carousel vs static)
-- Apply F-pattern and Z-pattern scanning knowledge to content placement
-- Design appropriate loading states and notification patterns
-
-**Example prompts:**
-- *"Should I use a hamburger menu or visible nav for this site? Use ui-patterns skill."*
-- *"Improve this form's completion rate. Use ui-patterns skill."*
-- *"Where should I place the CTA on this landing page for maximum visibility? Use ui-patterns skill."*
-- *"Design loading states for our dashboard. Use ui-patterns skill."*
+- *"Audit our README against a real docs style guide, score it, and give me the fixed version. Use technical-documentation skill."*
+- *"Write a how-to for adding a plugin to this repo — use only what's in the code and CLAUDE.md. Use technical-documentation skill."*
+- *"Rewrite the JSDoc in src/client.ts so it reads like proper API reference. Don't touch the code. Use technical-documentation skill."*
+- *"Turn our git log since v2.3 into a Keep a Changelog entry with a migration section for the breaking change. Use technical-documentation skill."*
 
 ---
 
@@ -1651,70 +1604,46 @@ Guided journey to design deliberate architecture for a new system: architecture 
 - *"We're starting a new service — design the architecture with me, decision by decision. Use design-code-architecture skill."*
 - *"Run the architecture journey for this system; default to a modular monolith. Use design-code-architecture skill."*
 - *"Resume the architecture design from the decision log. Use design-code-architecture skill."*
-||||||| 7c71a84
-=======
-### [gestalt-ui](https://skills.wondel.ai/skills/gestalt-ui/)
-
-Apply Gestalt principles of visual perception to UI design. Understand how users automatically group, separate, and interpret visual elements -- and use these principles intentionally to make interfaces self-explanatory.
-
-**Based on:** Gestalt psychology research (Max Wertheimer, Kurt Koffka, Wolfgang Köhler) applied to digital interface design, synthesised from [Smashing Magazine](https://www.smashingmagazine.com/2014/03/design-principles-visual-perception-and-the-principles-of-gestalt/) and [Interaction Design Foundation](https://www.interaction-design.org/literature/topics/gestalt-principles).
-
-**Use when you need to:**
-- Group and organize UI elements effectively using spacing, borders, and visual connections
-- Create intuitive visual relationships between components
-- Audit layouts for perceptual clarity and unintended grouping
-- Design navigation, cards, forms, or dashboards that users understand instantly
-- Resolve conflicting visual signals between proximity, similarity, and containers
-
-**Example prompts:**
-- *"Audit this dashboard layout for Gestalt violations. Use gestalt-ui skill."*
-- *"These form fields feel disconnected. Fix the visual grouping. Use gestalt-ui skill."*
-- *"How should I use proximity and common region to group these settings? Use gestalt-ui skill."*
-- *"Score this card layout on Gestalt principle adherence. Use gestalt-ui skill."*
 
 ---
 
-### [laws-of-ux](https://skills.wondel.ai/skills/laws-of-ux/)
+### [conversion-optimization](https://skills.wondel.ai/skills/conversion-optimization/)
 
-Apply evidence-based UX laws to interaction design decisions. These behavioural psychology principles describe how humans perceive, decide, and act -- use them to design interfaces that work with human cognition, not against it.
+Guided journey for one leaking conversion flow — landing page, signup, checkout, or in-app onboarding: find the leak with numbers, learn the reason from customers, fix message, offer, proof, and friction in that order, and prove every fix with a pre-committed test.
 
-**About the author:** [Jon Yablonski](https://x.com/jonyablonski) is a designer and author of [*"Laws of UX"*](https://www.amazon.com/Laws-UX-Using-Psychology-Products/dp/149205531X?tag=wondelai00-20), synthesising decades of research from Fitts, Hick, Miller, Nielsen, and others into actionable design principles at [lawsofux.com](https://lawsofux.com/).
+**About the journey:** Orchestrates six skills — lean-analytics, cro-methodology, storybrand-messaging, hundred-million-offers, influence-psychology, design-everyday-things — writing FUNNEL.md and extending METRICS.md, EXPERIMENTS.md, POSITIONING.md, OFFER.md, and DESIGN.md as it goes. Every phase carries its full method inline (plus `references/methods.md`), so it runs standalone with no other skills installed.
 
 **Use when you need to:**
-- Size and position interactive targets effectively (Fitts's Law)
-- Reduce cognitive load and decision complexity (Hick's Law, Miller's Law)
-- Design progress indicators and memory-friendly interfaces (Goal-Gradient, Serial Position)
-- Resolve design trade-offs with psychological evidence
-- Optimise response times and perceived performance (Doherty Threshold)
-- Follow platform conventions or decide when to break them (Jakob's Law)
+- Fix checkout or signup abandonment on a specific flow
+- Diagnose onboarding drop-off inside a product
+- Replace guesses about why people quit with researched objections in their words
+- Strengthen the offer and place honest proof at each point of doubt
+- Ship each fix as a test with a pre-committed metric, not a hunch
 
 **Example prompts:**
-- *"Our mobile buttons feel too small and hard to tap. Audit using Fitts's Law. Use laws-of-ux skill."*
-- *"Users abandon our settings page. Too many choices? Diagnose with Hick's Law. Use laws-of-ux skill."*
-- *"Design a progress indicator for our 6-step onboarding. Use laws-of-ux skill."*
-- *"Score this checkout flow against UX laws. Use laws-of-ux skill."*
+- *"Our checkout loses 60% at the payment step — find the leak and fix it. Use conversion-optimization skill."*
+- *"Run the conversion journey on our signup flow, starting with the funnel numbers. Use conversion-optimization skill."*
+- *"Resume the funnel work from the tracker and design the next test. Use conversion-optimization skill."*
 
 ---
 
-### [ui-patterns](https://skills.wondel.ai/skills/ui-patterns/)
+### [architecture-optimization](https://skills.wondel.ai/skills/architecture-optimization/)
 
-Apply proven UI component patterns and scanning behaviour to build effective interfaces. Concrete guidance for navigation, forms, buttons, cards, modals, tables, loading states, and notifications -- plus a decision reference for choosing between competing patterns.
+Guided journey for a working codebase grown slow and tangled: measure before optimizing, pin before restructuring — the profiler and the safety net decide what changes, and every optimization proves itself with before/after numbers.
 
-**Based on:** Nielsen Norman Group eye-tracking research, [Smashing Magazine](https://www.smashingmagazine.com/) best practices (navigation, forms, buttons), and industry-standard component design patterns.
+**About the journey:** Orchestrates eight skills — working-with-legacy-code, clean-architecture, software-design-philosophy, refactoring-patterns, system-design, ddia-systems, release-it, pragmatic-programmer — writing PERFORMANCE.md and extending ARCHITECTURE.md, TECH-DEBT.md, TESTING.md, and RELIABILITY.md as it goes. Every phase carries its full method inline (plus `references/methods.md`), so it runs standalone with no other skills installed.
 
 **Use when you need to:**
-- Design navigation that answers "Where am I? Where can I go? Where have I been?"
-- Build forms with optimal label placement, validation, and friction reduction
-- Choose between competing UI patterns (dropdown vs radio, modal vs inline, carousel vs static)
-- Apply F-pattern and Z-pattern scanning knowledge to content placement
-- Design appropriate loading states and notification patterns
+- Make slow endpoints and queries measurably faster, guided by a profile
+- Untangle boundaries that drifted as the codebase grew
+- Fix N+1 queries, missing indexes, and unbounded result sets by evidence
+- Keep latency stable when a dependency is slow or down
+- Turn performance budgets into CI gates so the gains hold
 
 **Example prompts:**
-- *"Should I use a hamburger menu or visible nav for this site? Use ui-patterns skill."*
-- *"Improve this form's completion rate. Use ui-patterns skill."*
-- *"Where should I place the CTA on this landing page for maximum visibility? Use ui-patterns skill."*
-- *"Design loading states for our dashboard. Use ui-patterns skill."*
->>>>>>> alpham8/main
+- *"Our API got slow as we grew — profile it and optimize the hot paths. Use architecture-optimization skill."*
+- *"Run the architecture-optimization journey: baseline first, then boundaries and queries. Use architecture-optimization skill."*
+- *"Resume the optimization journey and check the ledger before/afters. Use architecture-optimization skill."*
 
 ---
 
@@ -1735,7 +1664,7 @@ Developer Toolkit is a comprehensive learning platform for mastering AI-assisted
 
 ## Work With Us
 
-These 62 skills are the open-source tip of what we do. **[Wondel.ai](https://skills.wondel.ai/work-with-us/)** builds custom Claude skills, agents, and MCP integrations — shipped to production, not demoed.
+These 65 skills are the open-source tip of what we do. **[Wondel.ai](https://skills.wondel.ai/work-with-us/)** builds custom Claude skills, agents, and MCP integrations — shipped to production, not demoed.
 
 - **Skill sprints** — a focused, eval-backed skill scoped and shipped fast
 - **Custom builds** — production AI systems combining skills, agents, and MCP integrations
@@ -1793,6 +1722,7 @@ The methodologies and frameworks referenced in these skills are the intellectual
 - **High Performance Browser Networking**: Ilya Grigorik
 - **Getting Real**: Jason Fried, David Heinemeier Hansson
 - **Rework**: Jason Fried, David Heinemeier Hansson
+- **Shape Up**: Ryan Singer
 - **Steve Jobs**: Walter Isaacson
 - **Insanely Simple**: Ken Segall
 - **Creative Selection**: Ken Kocienda
@@ -1803,11 +1733,9 @@ The methodologies and frameworks referenced in these skills are the intellectual
 - **Team Topologies**: Matthew Skelton, Manuel Pais
 - **High Output Management**: Andrew S. Grove
 - **Lean Analytics**: Alistair Croll, Benjamin Yoskovitz
-- **Laws of UX**: Jon Yablonski
-- **Gestalt psychology**: Max Wertheimer, Kurt Koffka, Wolfgang Köhler (public domain research)
-- **UI Patterns**: Nielsen Norman Group (Jakob Nielsen, Don Norman), Smashing Magazine
+- **Google Developer Documentation Style Guide**: Google LLC, adapted under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-The 12 metaskills (create/improve/grow × business/website/app, improve-code-quality, remove-technical-debt, design-code-architecture) are orchestration workflows authored by Wondel.ai. They sequence and invoke the skills above; the frameworks they reference remain the intellectual property of the authors listed here.
+The 14 metaskills (create/improve/grow × business/website/app, improve-code-quality, remove-technical-debt, design-code-architecture, conversion-optimization, architecture-optimization) are orchestration workflows authored by Wondel.ai. They sequence and invoke the skills above; the frameworks they reference remain the intellectual property of the authors listed here.
 
 These skills were created without directly copying or reproducing content from the original books or materials. They are based on:
 - Publicly available information about the methodologies
